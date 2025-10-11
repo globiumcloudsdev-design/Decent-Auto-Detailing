@@ -1,0 +1,844 @@
+{
+  "formData": {
+    "name": "",
+    "email": "",
+    "phone": "",
+    "service": "",
+    "servicePackage": "",
+    "additionalServices": [],
+    "date": null,
+    "time": "",
+    "vehicleType": "",
+    "vehicle": {
+      "make": "",
+      "model": "",
+      "year": "",
+      "color": "",
+      "length": ""
+    },
+   "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": ""
+    },
+    "notes": "",
+    "utilities": {
+      "hasWater": false,
+      "hasElectricity": false,
+      "hasCoveredArea": false
+    },
+    "issues": []
+  },
+  "serviceTypes": [
+    {
+      "id": "car",
+      "name": "Car Detailing",
+      "vehicleTypes": [
+        "car"
+      ],
+      "packages": [
+        {
+          "id": "car-basic-full",
+          "name": "Car Basic Full Package",
+          "price": 220,
+          "description": "Basic interior and exterior package for Cars",
+          "pricingType": "fixed",
+          "includes": [
+            "Basic Interior Package",
+            "Basic Exterior Package"
+          ]
+        },
+        {
+          "id": "car-premium-full",
+          "name": "Car Premium Full Package",
+          "price": 320,
+          "description": "Premium interior and exterior package with polishing and protection",
+          "pricingType": "fixed",
+          "includes": [
+            "Premium Interior Package",
+            "Premium Exterior Package",
+            "Polish & Sealant"
+          ]
+        },
+        {
+          "id": "car-interior-only",
+          "name": "Car Interior Only",
+          "price": 180,
+          "description": "Deep interior cleaning and sanitation",
+          "pricingType": "fixed",
+          "includes": [
+            "Vacuum",
+            "Carpet Shampoo",
+            "Dashboard & Trim Cleaning"
+          ]
+        },
+        {
+          "id": "car-exterior-only",
+          "name": "Car Exterior Only",
+          "price": 160,
+          "description": "Exterior wash, decontamination and basic polish",
+          "pricingType": "fixed",
+          "includes": [
+            "Hand Wash",
+            "Clay Bar",
+            "Wax Finish"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "pet-hair",
+          "name": "Pet Hair Removal",
+          "price": 25,
+          "description": "Specialized treatment to remove embedded pet hair",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "odor-elimination",
+          "name": "Odor Elimination (Ozone)",
+          "price": 50,
+          "description": "Ozone + deep deodorizing treatment",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "headlight-restoration",
+          "name": "Headlight Restoration",
+          "price": 45,
+          "description": "Restore cloudy headlights to like-new clarity",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "engine-cleaning",
+          "name": "Engine Bay Cleaning",
+          "price": 50,
+          "description": "Professional cleaning and dressing of engine bay",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "deep-shampoo",
+          "name": "Deep Carpet & Seat Shampoo",
+          "price": 70,
+          "description": "Intensive cleaning for carpets and fabric seats",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "leather-conditioning",
+          "name": "Leather Conditioning",
+          "price": 60,
+          "description": "Clean and condition leather seats & trims",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "paint-correction",
+          "name": "Paint Correction (1-step)",
+          "price": 150,
+          "description": "Single stage paint correction to remove light swirls",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "ceramic-coating",
+          "name": "Ceramic Coating (basic)",
+          "price": 220,
+          "description": "Short-term ceramic protection for exterior paint",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "tire-dressing",
+          "name": "Tire Dressing & Wheel Shine",
+          "price": 20,
+          "description": "Clean wheels + dressing for tires",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "windshield-treatment",
+          "name": "Windshield Rain Repellent",
+          "price": 40,
+          "description": "Hydrophobic treatment for better visibility in rain",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "suv",
+      "name": "SUV Detailing",
+      "vehicleTypes": [
+        "suv"
+      ],
+      "packages": [
+        {
+          "id": "suv-basic-full",
+          "name": "SUV Basic Full Package",
+          "price": 260,
+          "description": "Basic interior + exterior for SUVs",
+          "pricingType": "fixed",
+          "includes": [
+            "Basic Interior Package",
+            "Basic Exterior Package"
+          ]
+        },
+        {
+          "id": "suv-premium-full",
+          "name": "SUV Premium Full Package",
+          "price": 380,
+          "description": "Premium package including polish and interior protection",
+          "pricingType": "fixed",
+          "includes": [
+            "Premium Interior Package",
+            "Premium Exterior Package",
+            "Sealant"
+          ]
+        },
+        {
+          "id": "suv-interior-only",
+          "name": "SUV Interior Only",
+          "price": 200,
+          "description": "Deep interior cleaning tailored for larger cabins",
+          "pricingType": "fixed",
+          "includes": [
+            "Vacuum",
+            "Deep Shampoo",
+            "Trim Treatment"
+          ]
+        },
+        {
+          "id": "suv-exterior-only",
+          "name": "SUV Exterior Only",
+          "price": 210,
+          "description": "Exterior wash and protection for SUVs",
+          "pricingType": "fixed",
+          "includes": [
+            "Hand Wash",
+            "Clay",
+            "Wax/Sealant"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "suv-headlight-restoration",
+          "name": "Headlight Restoration",
+          "price": 50,
+          "description": "Restore clarity on larger SUV headlights",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "suv-engine-cleaning",
+          "name": "Engine Bay Cleaning",
+          "price": 60,
+          "description": "Heavy-duty engine cleaning for SUVs",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "roof-rack-clean",
+          "name": "Roof Rack & Roof Cleaning",
+          "price": 45,
+          "description": "Remove dirt from roof racks and roof areas",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "4x4-underside-clean",
+          "name": "Underside & Wheel Arch Clean",
+          "price": 70,
+          "description": "Clean mud and salt from wheel arches and underside",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "ceramic-coating-suv",
+          "name": "Ceramic Coating (SUV)",
+          "price": 260,
+          "description": "Durable coating for SUV exterior",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "interior-protection",
+          "name": "Fabric Protection",
+          "price": 90,
+          "description": "Protect fabric seats and carpets against stains",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "odour-ozone-suv",
+          "name": "Ozone Odor Treatment",
+          "price": 55,
+          "description": "Full cabin ozone treatment for tough odors",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "wheel-polish",
+          "name": "Wheel Polish & Seal",
+          "price": 45,
+          "description": "Polish alloy wheels and apply sealant",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "truck",
+      "name": "Truck Detailing",
+      "vehicleTypes": [
+        "truck"
+      ],
+      "packages": [
+        {
+          "id": "truck-basic-full",
+          "name": "Truck Basic Full Package",
+          "price": 320,
+          "description": "Basic interior and exterior package for Trucks",
+          "pricingType": "fixed",
+          "includes": [
+            "Basic Interior Package",
+            "Basic Exterior Package"
+          ]
+        },
+        {
+          "id": "truck-premium-full",
+          "name": "Truck Premium Full Package",
+          "price": 420,
+          "description": "Premium full service for trucks with extra degreasing",
+          "pricingType": "fixed",
+          "includes": [
+            "Premium Interior Package",
+            "Premium Exterior Package",
+            "Degrease"
+          ]
+        },
+        {
+          "id": "truck-bed-clean",
+          "name": "Truck Bed Deep Clean",
+          "price": 220,
+          "description": "Remove stains, debris and treat bedliner",
+          "pricingType": "fixed",
+          "includes": [
+            "Pressure Clean",
+            "Bedliner Treatment"
+          ]
+        },
+        {
+          "id": "truck-exterior-heavy",
+          "name": "Truck Exterior Heavy Duty",
+          "price": 260,
+          "description": "Heavy-duty exterior cleaning for trucks",
+          "pricingType": "fixed",
+          "includes": [
+            "High-Pressure Wash",
+            "Clay & Polishing"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "bedliner-clean",
+          "name": "Bedliner Cleaning & Treatment",
+          "price": 80,
+          "description": "Clean and restore protective bedliner",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "truck-engine-clean",
+          "name": "Engine Degrease & Clean",
+          "price": 90,
+          "description": "Heavy degreasing for truck engines",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "rust-protection",
+          "name": "Rust Protection Coating (spot)",
+          "price": 120,
+          "description": "Apply rust inhibitor to vulnerable spots",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "trailer-hitch-clean",
+          "name": "Trailer Hitch & Underbody Clean",
+          "price": 60,
+          "description": "Clean trailer hitch area and underside",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "heavy-degrease",
+          "name": "Heavy Degrease (Exterior)",
+          "price": 100,
+          "description": "Extra degreasing for oil & heavy grime",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "wheel-seal-truck",
+          "name": "Heavy Wheel Cleaning & Seal",
+          "price": 70,
+          "description": "Aggressive wheel clean and protective seal",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "van",
+      "name": "Van Detailing",
+      "vehicleTypes": [
+        "van"
+      ],
+      "packages": [
+        {
+          "id": "van-basic-full",
+          "name": "Van Basic Full Package",
+          "price": 280,
+          "description": "Basic interior and exterior for Vans",
+          "pricingType": "fixed",
+          "includes": [
+            "Basic Interior Package",
+            "Basic Exterior Package"
+          ]
+        },
+        {
+          "id": "van-premium-full",
+          "name": "Van Premium Full Package",
+          "price": 380,
+          "description": "Premium package for large vans including cargo area treatment",
+          "pricingType": "fixed",
+          "includes": [
+            "Premium Interior Package",
+            "Cargo Area Treatment",
+            "Exterior Sealant"
+          ]
+        },
+        {
+          "id": "van-interior-only",
+          "name": "Van Interior Only",
+          "price": 240,
+          "description": "Deep cleaning for passenger or cargo vans",
+          "pricingType": "fixed",
+          "includes": [
+            "Deep Shampoo",
+            "Seat Treatment",
+            "Odor Treatment"
+          ]
+        },
+        {
+          "id": "van-exterior-only",
+          "name": "Van Exterior Only",
+          "price": 200,
+          "description": "Exterior wash and protection for vans",
+          "pricingType": "fixed",
+          "includes": [
+            "Hand Wash",
+            "Clay Bar",
+            "Wax"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "van-extra-cleaning",
+          "name": "Extra Cargo Area Cleaning",
+          "price": 90,
+          "description": "Deep cleaning for cargo compartments",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "van-seat-removal",
+          "name": "Seat Removal & Deep Clean",
+          "price": 120,
+          "description": "Remove seats for professional deep clean (per-row pricing may apply)",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "van-odor-elim",
+          "name": "Advanced Odor Elimination",
+          "price": 70,
+          "description": "Full van ozone + chemical neutralization",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "van-roof-clean",
+          "name": "Roof & High-Surface Clean",
+          "price": 60,
+          "description": "Clean roof and high exterior surfaces safely",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "cargo-protect",
+          "name": "Cargo Floor Protection",
+          "price": 100,
+          "description": "Apply protective coating to cargo floor",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "boat",
+      "name": "Boat Detailing",
+      "vehicleTypes": [
+        "boat"
+      ],
+      "packages": [
+        {
+          "id": "boat-full",
+          "name": "Full Boat Service",
+          "price": 35,
+          "description": "Complete boat interior and exterior detailing (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Boat Interior Services",
+            "Boat Exterior Services"
+          ]
+        },
+        {
+          "id": "boat-interior",
+          "name": "Boat Interior Only",
+          "price": 19,
+          "description": "Boat interior detailing only (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Interior Cleaning",
+            "Fabric Care"
+          ]
+        },
+        {
+          "id": "boat-exterior",
+          "name": "Boat Exterior Only",
+          "price": 23,
+          "description": "Boat exterior detailing only (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Hull Clean",
+            "Polish",
+            "Wax"
+          ]
+        },
+        {
+          "id": "boat-premium",
+          "name": "Boat Premium Protection",
+          "price": 45,
+          "description": "Premium exterior protection and polish (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Deep Polish",
+            "UV Sealant"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "boat-uv-protection",
+          "name": "UV Protection Coating",
+          "price": 150,
+          "description": "Premium UV protection for marine environment",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "boat-mildew-treatment",
+          "name": "Mildew Treatment",
+          "price": 75,
+          "description": "Anti-mildew treatment for marine conditions",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "hull-polish",
+          "name": "Hull Polish & Seal",
+          "price": 120,
+          "description": "Polish and protect the hull surface",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "anti-fouling",
+          "name": "Anti-Fouling Service",
+          "price": 200,
+          "description": "Apply anti-fouling coating (per job)",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "bilge-clean",
+          "name": "Bilge Cleaning & Treatment",
+          "price": 90,
+          "description": "Clean and sanitize bilge area",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "jet-ski",
+      "name": "Jet Ski Detailing",
+      "vehicleTypes": [
+        "jet-ski"
+      ],
+      "packages": [
+        {
+          "id": "jet-ski-full",
+          "name": "Jet Ski Full Detailing",
+          "price": 220,
+          "description": "Complete jet ski detailing package",
+          "pricingType": "fixed",
+          "includes": [
+            "Exterior Wash",
+            "Polish",
+            "Engine Area Check"
+          ]
+        },
+        {
+          "id": "jet-ski-premium",
+          "name": "Jet Ski Premium",
+          "price": 280,
+          "description": "Premium protection and polish for jet skis",
+          "pricingType": "fixed",
+          "includes": [
+            "Polish",
+            "Sealant",
+            "Engine Protect"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "jet-ski-rust-protection",
+          "name": "Rust Protection",
+          "price": 60,
+          "description": "Anti-rust treatment for saltwater protection",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "jet-ski-engine-preserve",
+          "name": "Engine Preservation",
+          "price": 80,
+          "description": "Flush and protect engine components after detailing",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "jet-ski-hull-polish",
+          "name": "Hull Polish",
+          "price": 70,
+          "description": "Polish hull to reduce drag and protect finish",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "rv",
+      "name": "RV Detailing",
+      "vehicleTypes": [
+        "rv"
+      ],
+      "packages": [
+        {
+          "id": "rv-full",
+          "name": "Full RV Service",
+          "price": 40,
+          "description": "Complete RV interior and exterior detailing (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "RV Interior Services",
+            "RV Exterior Services"
+          ]
+        },
+        {
+          "id": "rv-interior",
+          "name": "RV Interior Only",
+          "price": 25,
+          "description": "RV interior detailing only (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Interior Cleaning",
+            "Sanitization"
+          ]
+        },
+        {
+          "id": "rv-exterior",
+          "name": "RV Exterior Only",
+          "price": 30,
+          "description": "RV exterior detailing only (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Exterior Wash",
+            "Polish"
+          ]
+        },
+        {
+          "id": "rv-premium",
+          "name": "RV Premium Protection",
+          "price": 50,
+          "description": "Premium exterior protection (per foot)",
+          "pricingType": "perFoot",
+          "includes": [
+            "Sealant",
+            "UV Guard"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "rv-roof-treatment",
+          "name": "Roof Sealant Treatment",
+          "price": 120,
+          "description": "Professional roof sealing and protection",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "rv-tank-cleaning",
+          "name": "Water Tank Cleaning",
+          "price": 80,
+          "description": "Fresh water tank cleaning and sanitization",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "rv-awning-clean",
+          "name": "Awning Clean & Protect",
+          "price": 90,
+          "description": "Clean and treat RV awning fabric",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "rv-slide-lube",
+          "name": "Slide-Out Lubrication",
+          "price": 70,
+          "description": "Lubricate and service slide mechanisms",
+          "pricingType": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "motorcycle",
+      "name": "Motorcycle Detailing",
+      "vehicleTypes": [
+        "motorcycle"
+      ],
+      "packages": [
+        {
+          "id": "bike-basic",
+          "name": "Bike Quick Detail",
+          "price": 120,
+          "description": "Quick wash and light polish for motorcycles",
+          "pricingType": "fixed",
+          "includes": [
+            "Hand Wash",
+            "Chain Wipe",
+            "Quick Polish"
+          ]
+        },
+        {
+          "id": "bike-full",
+          "name": "Full Bike Detailing",
+          "price": 170,
+          "description": "Complete motorcycle detailing package",
+          "pricingType": "fixed",
+          "includes": [
+            "Full Clean",
+            "Polish",
+            "Protectants"
+          ]
+        },
+        {
+          "id": "bike-premium",
+          "name": "Bike Premium",
+          "price": 220,
+          "description": "Premium polish, protect and mechanical-friendly cleaning",
+          "pricingType": "fixed",
+          "includes": [
+            "Polish",
+            "Corrosion Protect",
+            "Engine Area Clean"
+          ]
+        }
+      ],
+      "additionalServices": [
+        {
+          "id": "bike-chain-service",
+          "name": "Chain Service",
+          "price": 30,
+          "description": "Complete chain cleaning and lubrication",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "bike-chrome-polish",
+          "name": "Chrome Polish",
+          "price": 45,
+          "description": "Premium chrome polishing and protection",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "bike-engine-polish",
+          "name": "Engine & Metal Polish",
+          "price": 60,
+          "description": "Polish engine and metal parts, protect against corrosion",
+          "pricingType": "fixed"
+        },
+        {
+          "id": "bike-tyre-shine",
+          "name": "Tyre Shine",
+          "price": 15,
+          "description": "Tire dressing for fresh look",
+          "pricingType": "fixed"
+        }
+      ]
+    }
+  ],
+  "vehicleTypes": [
+    {
+      "id": "car",
+      "name": "Car",
+      "icon": "🚗"
+    },
+    {
+      "id": "suv",
+      "name": "SUV",
+      "icon": "🚙"
+    },
+    {
+      "id": "truck",
+      "name": "Truck",
+      "icon": "🚚"
+    },
+    {
+      "id": "van",
+      "name": "Van",
+      "icon": "🚐"
+    },
+    {
+      "id": "boat",
+      "name": "Boat",
+      "icon": "🚤"
+    },
+    {
+      "id": "jet-ski",
+      "name": "Jet Ski",
+      "icon": "🌊"
+    },
+    {
+      "id": "rv",
+      "name": "RV",
+      "icon": "🚌"
+    },
+    {
+      "id": "motorcycle",
+      "name": "Motorcycle",
+      "icon": "🏍️"
+    }
+  ],
+  "timeSlots": [
+    "9:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "1:00 PM",
+    "2:00 PM",
+    "3:00 PM",
+    "4:00 PM",
+    "5:00 PM"
+  ],
+  "promoCodes": [
+    {
+      "code": "WASH10",
+      "discount": 10
+    },
+    {
+      "code": "DETAIL15",
+      "discount": 15
+    },
+    {
+      "code": "BOAT20",
+      "discount": 20
+    },
+    {
+      "code": "SUMMER25",
+      "discount": 25
+    }
+  ]
+}
