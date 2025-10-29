@@ -1,12 +1,6 @@
-# Allow all search engines to crawl the site
+# *
 User-agent: *
 Allow: /
-
-# Disallow API routes and admin areas
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /static/
 
 # Host
 Host: https://decentautocaredetailing.vercel.app

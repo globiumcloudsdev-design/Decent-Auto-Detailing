@@ -2,9 +2,9 @@ import Service from "@/pages/Service";
 import type { Metadata } from "next";
 
 interface ServicePageProps {
-  params: {
+  params: Promise<{
     serviceId: string;
-  };
+  }>;
 }
 
 const serviceData: Record<string, {
@@ -34,7 +34,8 @@ const serviceData: Record<string, {
 };
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
-  const service = serviceData[params.serviceId];
+  const { serviceId } = await params;
+  const service = serviceData[serviceId];
 
   if (!service) {
     return {
@@ -48,12 +49,12 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     description: service.description,
     keywords: service.keywords,
     alternates: {
-      canonical: `https://decentautocaredetailing.vercel.app/services/${params.serviceId}`,
+      canonical: `https://decentautocaredetailing.vercel.app/services/${serviceId}`,
     },
     openGraph: {
       title: service.title,
       description: service.description,
-      url: `https://decentautocaredetailing.vercel.app/services/${params.serviceId}`,
+      url: `https://decentautocaredetailing.vercel.app/services/${serviceId}`,
       siteName: "Decent Auto Detailing",
       images: [
         {
@@ -75,6 +76,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   };
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
-  return <Service serviceId={params.serviceId} />;
+export default async function ServicePage({ params }: ServicePageProps) {
+  const { serviceId } = await params;
+  return <Service serviceId={serviceId} />;
 }
