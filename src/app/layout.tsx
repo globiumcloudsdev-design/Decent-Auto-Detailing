@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Decent Auto Detailing - Professional Car Detailing Services in Karachi",
-  description: "Expert auto detailing services in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, and interior detailing. Book your appointment today!",
+  title: "Decent Auto Detailing - Car Detailing Services in Karachi",
+  description: "Expert auto detailing in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, interior detailing. Book your appointment today!",
   keywords: "auto detailing Karachi, car detailing Pakistan, mobile car wash, ceramic coating, window tinting, interior detailing, Decent Auto Detailing",
   authors: [{ name: "Decent Auto Detailing" }],
   creator: "Decent Auto Detailing",
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Decent Auto Detailing - Professional Car Detailing Services in Karachi",
-    description: "Expert auto detailing services in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, and interior detailing. Book your appointment today!",
+    title: "Decent Auto Detailing - Car Detailing Services in Karachi",
+    description: "Expert auto detailing in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, interior detailing. Book your appointment today!",
     url: "https://decentautocaredetailing.vercel.app",
     siteName: "Decent Auto Detailing",
     images: [
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Decent Auto Detailing - Professional Car Detailing Services in Karachi",
-    description: "Expert auto detailing services in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, and interior detailing. Book your appointment today!",
+    title: "Decent Auto Detailing - Car Detailing Services in Karachi",
+    description: "Expert auto detailing in Karachi, Pakistan. Mobile car wash, ceramic coating, window tinting, interior detailing. Book your appointment today!",
     images: ["/pictures/main-logo.png"],
     creator: "@DecentAutoDetail",
   },
