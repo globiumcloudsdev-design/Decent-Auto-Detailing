@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface DiscountModalProps {
   isOpen: boolean;
@@ -15,13 +15,42 @@ interface DiscountModalProps {
 }
 
 const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
-  if (!isOpen || !data) return null;
+  const [hasClaimed, setHasClaimed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const claimed = localStorage.getItem("discount_claimed") === "true";
+    setHasClaimed(claimed);
+  }, []);
+
+  useEffect(() => {
+    if (hasClaimed) return;
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+
+      if (scrollPercent >= 30) {
+        setIsModalOpen(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasClaimed]);
+
+  if (!isModalOpen || !data || hasClaimed) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 animate-fadeIn">
       <div className="bg-white rounded-xl max-w-md w-full p-6 relative animate-scaleIn shadow-xl">
-        <button 
-          onClick={onClose}
+        <button
+          onClick={() => {
+            setIsModalOpen(false);
+            onClose();
+          }}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
           aria-label="Close modal"
         >
@@ -60,8 +89,13 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
           
           {/* Button */}
           <div className="flex flex-col gap-3">
-            <button 
-              onClick={onClose}
+            <button
+              onClick={() => {
+                localStorage.setItem("discount_claimed", "true");
+                setHasClaimed(true);
+                setIsModalOpen(false);
+                onClose();
+              }}
               className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
             >
               {data.buttonText}
