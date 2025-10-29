@@ -19,8 +19,19 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const claimed = localStorage.getItem("discount_claimed") === "true";
-    setHasClaimed(claimed);
+    const checkClaimed = async () => {
+      try {
+        const response = await fetch('/api/discount-claim');
+        const data = await response.json();
+        setHasClaimed(data.claimed);
+      } catch (error) {
+        console.error('Error checking discount claim:', error);
+        // Fallback to localStorage if API fails
+        const claimed = localStorage.getItem("discount_claimed") === "true";
+        setHasClaimed(claimed);
+      }
+    };
+    checkClaimed();
   }, []);
 
   useEffect(() => {
@@ -90,11 +101,21 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
           {/* Button */}
           <div className="flex flex-col gap-3">
             <button
-              onClick={() => {
-                localStorage.setItem("discount_claimed", "true");
-                setHasClaimed(true);
-                setIsModalOpen(false);
-                onClose();
+              onClick={async () => {
+                try {
+                  await fetch('/api/discount-claim', { method: 'POST' });
+                  localStorage.setItem("discount_claimed", "true");
+                  setHasClaimed(true);
+                  setIsModalOpen(false);
+                  onClose();
+                } catch (error) {
+                  console.error('Error claiming discount:', error);
+                  // Fallback to localStorage only
+                  localStorage.setItem("discount_claimed", "true");
+                  setHasClaimed(true);
+                  setIsModalOpen(false);
+                  onClose();
+                }
               }}
               className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
             >
