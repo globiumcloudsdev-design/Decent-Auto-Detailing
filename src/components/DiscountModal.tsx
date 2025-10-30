@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface DiscountModalProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ interface DiscountModalProps {
 }
 
 const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
+  const router = useRouter();
   const [hasClaimed, setHasClaimed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -108,6 +110,7 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
                   setHasClaimed(true);
                   setIsModalOpen(false);
                   onClose();
+                  router.push('/booking');
                 } catch (error) {
                   console.error('Error claiming discount:', error);
                   // Fallback to localStorage only
@@ -115,6 +118,7 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
                   setHasClaimed(true);
                   setIsModalOpen(false);
                   onClose();
+                  router.push('/booking');
                 }
               }}
               className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
