@@ -57,22 +57,23 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
   if (!isModalOpen || !data || hasClaimed) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4 animate-fadeIn">
-      <div className="bg-white rounded-xl max-w-md w-full p-6 relative animate-scaleIn shadow-xl">
-        <button
-          onClick={() => {
-            setIsModalOpen(false);
-            onClose();
-          }}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
-          aria-label="Close modal"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        
+    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fadeIn">
+      <div className="bg-white rounded-xl max-w-md w-full p-6 animate-scaleIn shadow-xl">
         <div className="text-center">
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={() => {
+                setIsModalOpen(false);
+                onClose();
+              }}
+              className="text-gray-500 hover:text-gray-800 transition-colors"
+              aria-label="Close modal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
           {/* Header */}
           <div className="mb-5">
             <div className="bg-sky-500 text-white px-6 py-3 rounded-lg">
@@ -107,6 +108,7 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
                 try {
                   await fetch('/api/discount-claim', { method: 'POST' });
                   localStorage.setItem("discount_claimed", "true");
+                  sessionStorage.setItem("auto_apply_promo", data.discountCode);
                   setHasClaimed(true);
                   setIsModalOpen(false);
                   onClose();
@@ -115,6 +117,7 @@ const DiscountModal = ({ isOpen, onClose, data }: DiscountModalProps) => {
                   console.error('Error claiming discount:', error);
                   // Fallback to localStorage only
                   localStorage.setItem("discount_claimed", "true");
+                  sessionStorage.setItem("auto_apply_promo", data.discountCode);
                   setHasClaimed(true);
                   setIsModalOpen(false);
                   onClose();

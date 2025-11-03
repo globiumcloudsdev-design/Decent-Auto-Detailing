@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "Decent Auto Detailing",
     images: [
       {
-        url: "/favicon.ico.png",
+        url: "/favicon.png",
         width: 1200,
         height: 630,
         alt: "Decent Auto Detailing Logo",
@@ -66,9 +66,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/pictures/favicon.png",
+    shortcut: "/pictures/favicon.png",
+    apple: "/pictures/favicon.png",
   },
 };
 

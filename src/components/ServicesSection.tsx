@@ -36,6 +36,9 @@ const services = [
 
 const ServicesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descriptionRef = useRef<HTMLParagraphElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,11 +52,19 @@ const ServicesSection = () => {
       { threshold: 0.1 }
     );
 
-    const elements = sectionRef.current?.querySelectorAll('.fade-in');
+    const elements = sectionRef.current?.querySelectorAll('.fade-in, .bounce-in');
     elements?.forEach(el => observer.observe(el));
+
+    // Observe specific refs
+    if (titleRef.current) observer.observe(titleRef.current);
+    if (descriptionRef.current) observer.observe(descriptionRef.current);
+    if (buttonRef.current) observer.observe(buttonRef.current);
 
     return () => {
       elements?.forEach(el => observer.unobserve(el));
+      if (titleRef.current) observer.unobserve(titleRef.current);
+      if (descriptionRef.current) observer.unobserve(descriptionRef.current);
+      if (buttonRef.current) observer.unobserve(buttonRef.current);
     };
   }, []);
 
@@ -61,8 +72,8 @@ const ServicesSection = () => {
     <section id="services" className="py-20 bg-white" ref={sectionRef}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4 fade-in">Our Professional Services</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto fade-in">
+          <h2 ref={titleRef} className="text-3xl lg:text-4xl font-bold mb-4 slide-up">Our <span className="text-skyblue bounce-in" style={{ animationDelay: '0.3s' }}>Professional</span> Services</h2>
+          <p ref={descriptionRef} className="text-gray-600 max-w-2xl mx-auto slide-up" style={{ animationDelay: '0.2s' }}>
             We offer a variety of detailing services to keep your vehicle looking its best,
             from basic washing to premium treatments that protect your investment.
           </p>
@@ -70,15 +81,15 @@ const ServicesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div 
-              key={service.id} 
-              className="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl fade-in"
-              style={{ animationDelay: `${index * 0.2}s` }}
+            <div
+              key={service.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl bounce-in tilt-3d"
+              style={{ animationDelay: `${index * 0.2 + 0.4}s` }}
             >
               <div className="relative h-56 overflow-hidden">
-                <Image 
-                  src={service.image} 
-                  alt={service.title} 
+                <Image
+                  src={service.image}
+                  alt={service.title}
                   fill
                   className="object-cover transition-transform hover:scale-105"
                 />
@@ -86,7 +97,7 @@ const ServicesSection = () => {
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2">{service.title}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
-                <Link 
+                <Link
                   href={service.link}
                   className="text-skyblue font-medium flex items-center hover:text-blue-700 transition-colors"
                 >
@@ -101,9 +112,11 @@ const ServicesSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Link 
+          <Link
+            ref={buttonRef}
             href="/booking"
-            className="bg-sky-500 text-white px-8 py-3 rounded-full inline-block font-medium hover:bg-sky-600 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg fade-in shine-effect"
+            className="bg-sky-500 text-white px-8 py-3 rounded-full inline-block font-medium hover:bg-sky-600 transition-all transform hover:-translate-y-1 shadow-md hover:shadow-lg fade-in pulse-glow"
+            style={{ animationDelay: '1s' }}
           >
             Book A Service Now
           </Link>

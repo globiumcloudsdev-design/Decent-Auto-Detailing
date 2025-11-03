@@ -379,6 +379,7 @@ export const timeSlots = [
 
 /* ---------------------- PROMO CODES ---------------------- */
 export const promoCodes = [
+  { code: "WELCOME15", discount: 15 },
   { code: "WASH10", discount: 15 },
   { code: "DETAIL15", discount: 15 },
   { code: "BOAT20", discount: 15 },
@@ -500,15 +501,203 @@ export const mainServices = [
   {
     id: "mobile-detailing",
     name: "Mobile Detailing",
-    description: "On-site detailing service",
+    description: "On-site detailing service with all detailing packages",
     packages: [
+      // Sedan Packages
       {
-        id: "mobile-service",
-        name: "Mobile Detailing Service",
-        price: 40,
-        description: "On-site detailing service fee",
+        id: "mobile-sedan-basic-full",
+        name: "Sedan Basic Full Package (Mobile)",
+        price: 240, // Added mobile fee
+        description: "Basic interior and exterior package for sedans - Mobile Service",
         pricingType: "fixed",
-        includes: ["Travel to Location", "On-site Service Setup", "Convenience Fee"]
+        includes: ["Basic Interior Package", "Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-sedan-premium-full",
+        name: "Sedan Premium Full Package (Mobile)",
+        price: 310, // Added mobile fee
+        description: "Premium interior and exterior package for sedans - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Premium Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-sedan-basic-interior",
+        name: "Sedan Basic Interior Only (Mobile)",
+        price: 200, // Added mobile fee
+        description: "Basic interior package only (sedan) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-sedan-premium-interior",
+        name: "Sedan Premium Interior Only (Mobile)",
+        price: 240, // Added mobile fee
+        description: "Premium interior package only (sedan) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-sedan-basic-exterior",
+        name: "Sedan Basic Exterior Only (Mobile)",
+        price: 190, // Added mobile fee
+        description: "Basic exterior package only (sedan) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-sedan-premium-exterior",
+        name: "Sedan Premium Exterior Only (Mobile)",
+        price: 220, // Added mobile fee
+        description: "Premium exterior package only (sedan) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Exterior Package", "Mobile Service Fee"]
+      },
+      // SUV Packages
+      {
+        id: "mobile-suv-basic-full",
+        name: "SUV Basic Full Package (Mobile)",
+        price: 280, // Added mobile fee
+        description: "Basic interior and exterior package for SUVs - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-suv-premium-full",
+        name: "SUV Premium Full Package (Mobile)",
+        price: 370, // Added mobile fee
+        description: "Premium interior and exterior package for SUVs - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Premium Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-suv-basic-interior",
+        name: "SUV Basic Interior Only (Mobile)",
+        price: 240, // Added mobile fee
+        description: "Basic interior package only (SUV) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-suv-premium-interior",
+        name: "SUV Premium Interior Only (Mobile)",
+        price: 290, // Added mobile fee
+        description: "Premium interior package only (SUV) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-suv-basic-exterior",
+        name: "SUV Basic Exterior Only (Mobile)",
+        price: 220, // Added mobile fee
+        description: "Basic exterior package only (SUV) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-suv-premium-exterior",
+        name: "SUV Premium Exterior Only (Mobile)",
+        price: 250, // Added mobile fee
+        description: "Premium exterior package only (SUV) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Exterior Package", "Mobile Service Fee"]
+      },
+      // Truck Packages
+      {
+        id: "mobile-truck-basic-full",
+        name: "Truck Basic Full Package (Mobile)",
+        price: 300, // Added mobile fee
+        description: "Basic interior and exterior package for trucks - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-truck-premium-full",
+        name: "Truck Premium Full Package (Mobile)",
+        price: 390, // Added mobile fee
+        description: "Premium interior and exterior package for trucks - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Premium Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-truck-basic-interior",
+        name: "Truck Basic Interior Only (Mobile)",
+        price: 250, // Added mobile fee
+        description: "Basic interior package only (truck) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-truck-premium-interior",
+        name: "Truck Premium Interior Only (Mobile)",
+        price: 300, // Added mobile fee
+        description: "Premium interior package only (truck) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-truck-basic-exterior",
+        name: "Truck Basic Exterior Only (Mobile)",
+        price: 240, // Added mobile fee
+        description: "Basic exterior package only (truck) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-truck-premium-exterior",
+        name: "Truck Premium Exterior Only (Mobile)",
+        price: 280, // Added mobile fee
+        description: "Premium exterior package only (truck) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Exterior Package", "Mobile Service Fee"]
+      },
+      // Van Packages
+      {
+        id: "mobile-van-basic-full",
+        name: "Van Basic Full Package (Mobile)",
+        price: 270, // Added mobile fee
+        description: "Basic interior and exterior package for vans - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-van-premium-full",
+        name: "Van Premium Full Package (Mobile)",
+        price: 360, // Added mobile fee
+        description: "Premium interior and exterior package for vans - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Premium Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-van-basic-interior",
+        name: "Van Basic Interior Only (Mobile)",
+        price: 230, // Added mobile fee
+        description: "Basic interior package only (van) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-van-premium-interior",
+        name: "Van Premium Interior Only (Mobile)",
+        price: 270, // Added mobile fee
+        description: "Premium interior package only (van) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Interior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-van-basic-exterior",
+        name: "Van Basic Exterior Only (Mobile)",
+        price: 210, // Added mobile fee
+        description: "Basic exterior package only (van) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Basic Exterior Package", "Mobile Service Fee"]
+      },
+      {
+        id: "mobile-van-premium-exterior",
+        name: "Van Premium Exterior Only (Mobile)",
+        price: 245, // Added mobile fee
+        description: "Premium exterior package only (van) - Mobile Service",
+        pricingType: "fixed",
+        includes: ["Premium Exterior Package", "Mobile Service Fee"]
       }
     ]
   }
