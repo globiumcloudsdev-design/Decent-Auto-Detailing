@@ -1,59 +1,88 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import AboutSection from '../components/AboutSection';
-import ServicesSection from '../components/ServicesSection';
-import GallerySection from '../components/GallerySection';
-import ContactSection from '../components/ContactSection';
-import Footer from '../components/Footer';
-import DiscountModal from '../components/DiscountModal';
-
-// Import your discount data
-import discountData from '../Data/discountData.json';
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
+import AboutSection from "../components/AboutSection";
+import ServicesSection from "../components/ServicesSection";
+import GallerySection from "../components/GallerySection";
+import ContactSection from "../components/ContactSection";
+import Footer from "../components/Footer";
+import DiscountModal from "../components/DiscountModal";
 
 const Index = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [heroHeight, setHeroHeight] = useState(0);
+  const [discountData, setDiscountData] = useState<{
+    title: string;
+    description: string;
+    discountText: string;
+    discountCode: string;
+    buttonText: string;
+  } | null>(null);
+  const [showDiscountModal, setShowDiscountModal] = useState(false);
 
+
+  // ✅ Fetch promo code from API
   useEffect(() => {
-    // Function to add animation on scroll
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.fade-in');
-      elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementHeight = element.getBoundingClientRect().height;
+    const fetchPromoCode = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/promo-codes/agent/${process.env.NEXT_PUBLIC_AGENT_ID}`
+        );
+        const response = await res.json();
+        console.log("Fetched data:", response);
 
-        if (elementTop < window.innerHeight - elementHeight / 2) {
-          element.classList.add('visible');
+        if (response && response.success && response.data && response.data.length > 0) {
+          // Find the first active promo code
+          const activePromo = response.data.find((promo: { isActive: boolean }) => promo.isActive);
+          if (activePromo) {
+            setDiscountData({
+              title: "🎉 Special Offer!",
+              description: `Use promo code ${activePromo.promoCode} to get ${activePromo.discountPercentage}% OFF your first detailing service!`,
+              discountText: `${activePromo.discountPercentage}% OFF`,
+              discountCode: activePromo.promoCode,
+              buttonText: "Claim My Discount",
+            });
+          } else {
+            console.log("No active promo codes found");
+          }
+        } else {
+          console.log("No valid data from API");
         }
-      });
-
-      // Show modal when user scrolls past hero section
-      if (heroHeight > 0 && !showModal) {
-        const scrolledPastHero = window.scrollY > heroHeight * 0.8;
-        if (scrolledPastHero) {
-          setShowModal(true);
-        }
+      } catch (error) {
+        console.error("Error fetching promo code:", error);
       }
     };
 
-    // Get hero section height
-    const heroSection = document.getElementById('hero-section');
-    if (heroSection) {
-      setHeroHeight(heroSection.offsetHeight);
-    }
+    fetchPromoCode();
+  }, []);
 
-    // Initial check on load
+  // ✅ Show modal when discountData is set (removed to show on scroll only)
+
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Fade-in animations
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        const { top, height } = el.getBoundingClientRect();
+        if (top < window.innerHeight - height / 2) el.classList.add("visible");
+      });
+
+      // Show modal on scroll
+      const hero = document.getElementById("hero-section");
+      const discountClaimed = localStorage.getItem('discountClaimed') === 'true';
+      const remindUntil = localStorage.getItem('remindLaterUntil');
+      const shouldRemind = remindUntil ? Date.now() > parseInt(remindUntil) : true;
+
+      if (hero && hero.getBoundingClientRect().bottom < 0 && discountData && !showDiscountModal && !discountClaimed && shouldRemind) {
+        setShowDiscountModal(true);
+      }
+    };
+
     handleScroll();
-
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScroll);
-
-    // Clean up
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [heroHeight, showModal]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [discountData, showDiscountModal]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -68,9 +97,8 @@ const Index = () => {
       <Footer />
 
       <DiscountModal
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
-        data={discountData}
+        isOpen={showDiscountModal}
+        onClose={() => setShowDiscountModal(false)}
       />
     </div>
   );

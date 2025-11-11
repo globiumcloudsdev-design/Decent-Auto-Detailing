@@ -201,15 +201,13 @@ const BookingForm = () => {
   // Auto-apply promo code from sessionStorage (from discount modal)
   useEffect(() => {
     const autoApplyPromo = sessionStorage.getItem("auto_apply_promo");
-    if (autoApplyPromo && !appliedPromo) {
-      const foundPromo = promoCodes.find(
-        (promo) => promo.code.toLowerCase() === autoApplyPromo.toLowerCase()
-      );
-      if (foundPromo) {
-        setAppliedPromo(foundPromo);
-        setPromoCode(autoApplyPromo);
-        sessionStorage.removeItem("auto_apply_promo"); // Clear after applying
-      }
+    const autoApplyDiscount = sessionStorage.getItem("auto_apply_promo_discount");
+    if (autoApplyPromo && autoApplyDiscount && !appliedPromo) {
+      // Directly apply the promo from sessionStorage without checking static array
+      setAppliedPromo({ code: autoApplyPromo, discount: parseInt(autoApplyDiscount) });
+      setPromoCode(autoApplyPromo);
+      sessionStorage.removeItem("auto_apply_promo"); // Clear after applying
+      sessionStorage.removeItem("auto_apply_promo_discount"); // Clear after applying
     }
   }, []);
 
@@ -229,8 +227,68 @@ const BookingForm = () => {
     setFormData(prev => ({ ...prev, phone: formatted }));
   };
 
+  // Calculate total price for all vehicles
+  const calculateTotalPrice = () => {
+    let total = 0;
+
+    formData.vehicleBookings.forEach(vehicle => {
+      // Find the service type
+      const serviceType = serviceTypes.find(st => st.id === vehicle.serviceType);
+
+      // Find main service
+      const mainService = mainServices.find(ms => ms.id === vehicle.mainService);
+
+      let pkg;
+
+      if (mainService) {
+        // Main Service Package
+        pkg = mainService.packages.find(p => p.id === vehicle.package);
+      } else if (serviceType?.variants && vehicle.variant) {
+        // Variant Package
+        const variant = serviceType.variants.find(v => v.id === vehicle.variant);
+        pkg = variant?.packages.find(p => p.id === vehicle.package);
+      } else {
+        // Regular Service Package
+        pkg = serviceType?.packages?.find(p => p.id === vehicle.package);
+      }
+
+      // Add package price
+      if (pkg) {
+        let packagePrice = typeof pkg.price === 'string' ? Number(pkg.price) || 0 : pkg.price;
+        const pricingType = pkg.pricingType || "fixed";
+
+        if (pricingType === "perFoot" && vehicle.vehicleLength) {
+          packagePrice *= parseFloat(vehicle.vehicleLength);
+        }
+        total += packagePrice;
+      }
+
+      // Add additional services prices
+      if (vehicle.additionalServices.length > 0) {
+        let additionalServicesList: AdditionalService[] = [];
+
+        if (serviceType?.variants && vehicle.variant) {
+          const variant = serviceType.variants.find(v => v.id === vehicle.variant);
+          additionalServicesList = variant?.additionalServices || [];
+        } else if (serviceType?.additionalServices) {
+          additionalServicesList = serviceType.additionalServices || [];
+        }
+
+        vehicle.additionalServices.forEach(addId => {
+          const addService = additionalServicesList.find(a => a.id === addId);
+          if (addService) {
+            const price = typeof addService.price === 'string' ? Number(addService.price) || 0 : addService.price;
+            total += price;
+          }
+        });
+      }
+    });
+
+    return total;
+  };
+
   // Remove whitespace from promo code and apply
-  const applyPromoCode = () => {
+  const applyPromoCode = async () => {
     const cleanedPromoCode = promoCode.replace(/\s/g, '');
 
     if (!cleanedPromoCode.trim()) {
@@ -238,16 +296,49 @@ const BookingForm = () => {
       return;
     }
 
-    const foundPromo = promoCodes.find(
-      (promo) => promo.code.toLowerCase() === cleanedPromoCode.trim().toLowerCase()
-    );
+    try {
+      // First validate the promo code
+      const validateResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/promo-codes/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ promoCode: cleanedPromoCode.trim().toUpperCase() })
+      });
 
-    if (foundPromo) {
-      setAppliedPromo(foundPromo);
-      setPromoError("");
-      setPromoCode(cleanedPromoCode);
-    } else {
-      setPromoError("Invalid promo code");
+      const validateData = await validateResponse.json();
+
+      if (!validateData.success || !validateData.valid) {
+        setPromoError(validateData.message || 'Invalid promo code');
+        setAppliedPromo(null);
+        return;
+      }
+
+      // If valid, apply the promo code with current total amount
+      const totalAmount = calculateTotalPrice();
+      const applyResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/promo-codes/apply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          promoCode: cleanedPromoCode.trim().toUpperCase(),
+          amount: totalAmount
+        })
+      });
+
+      const applyData = await applyResponse.json();
+
+      if (applyData.success) {
+        setAppliedPromo({
+          code: applyData.data.promoCode,
+          discount: applyData.data.discountPercentage
+        });
+        setPromoError("");
+        setPromoCode(cleanedPromoCode);
+      } else {
+        setPromoError(applyData.message || 'Error applying promo code');
+        setAppliedPromo(null);
+      }
+    } catch (error) {
+      console.error('Error validating/applying promo code:', error);
+      setPromoError('Network error - please try again');
       setAppliedPromo(null);
     }
   };
@@ -378,66 +469,6 @@ const handleVariantChange = (vehicleId: string, variantId: string) => {
     updateVehicleBooking(vehicleId, 'additionalServices', []);
   };
 
-  // Calculate total price for all vehicles
-  const calculateTotalPrice = () => {
-    let total = 0;
-
-    formData.vehicleBookings.forEach(vehicle => {
-      // Find the service type
-      const serviceType = serviceTypes.find(st => st.id === vehicle.serviceType);
-      
-      // Find main service
-      const mainService = mainServices.find(ms => ms.id === vehicle.mainService);
-      
-      let pkg;
-
-      if (mainService) {
-        // Main Service Package
-        pkg = mainService.packages.find(p => p.id === vehicle.package);
-      } else if (serviceType?.variants && vehicle.variant) {
-        // Variant Package
-        const variant = serviceType.variants.find(v => v.id === vehicle.variant);
-        pkg = variant?.packages.find(p => p.id === vehicle.package);
-      } else {
-        // Regular Service Package
-        pkg = serviceType?.packages?.find(p => p.id === vehicle.package);
-      }
-
-      // Add package price
-      if (pkg) {
-        let packagePrice = typeof pkg.price === 'string' ? Number(pkg.price) || 0 : pkg.price;
-        const pricingType = pkg.pricingType || "fixed";
-
-        if (pricingType === "perFoot" && vehicle.vehicleLength) {
-          packagePrice *= parseFloat(vehicle.vehicleLength);
-        }
-        total += packagePrice;
-      }
-
-      // Add additional services prices
-      if (vehicle.additionalServices.length > 0) {
-        let additionalServicesList: AdditionalService[] = [];
-        
-        if (serviceType?.variants && vehicle.variant) {
-          const variant = serviceType.variants.find(v => v.id === vehicle.variant);
-          additionalServicesList = variant?.additionalServices || [];
-        } else if (serviceType?.additionalServices) {
-          additionalServicesList = serviceType.additionalServices || [];
-        }
-
-        vehicle.additionalServices.forEach(addId => {
-          const addService = additionalServicesList.find(a => a.id === addId);
-          if (addService) {
-            const price = typeof addService.price === 'string' ? Number(addService.price) || 0 : addService.price;
-            total += price;
-          }
-        });
-      }
-    });
-
-    return total;
-  };
-
   // Calculate discount amount
   const calculateDiscount = () => {
     if (!appliedPromo) return 0;
@@ -529,7 +560,7 @@ const handleVariantChange = (vehicleId: string, variantId: string) => {
 
       console.log("Sending booking data:", bookingData);
 
-      const res = await fetch("https://car-detailling-dashboard.vercel.app/api/booking", { // Changed API endpoint to /api/bookings
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/booking`, { // Changed API endpoint to /api/bookings
         method: "POST",
         headers: { 
           "Content-Type": "application/json",

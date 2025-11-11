@@ -23,14 +23,18 @@ const Booking = () => {
       { threshold: 0.1 }
     );
 
-    if (titleRef.current) observer.observe(titleRef.current);
-    if (subtitleRef.current) observer.observe(subtitleRef.current);
-    if (formRef.current) observer.observe(formRef.current);
+    const title = titleRef.current;
+    const subtitle = subtitleRef.current;
+    const form = formRef.current;
+
+    if (title) observer.observe(title);
+    if (subtitle) observer.observe(subtitle);
+    if (form) observer.observe(form);
 
     return () => {
-      if (titleRef.current) observer.unobserve(titleRef.current);
-      if (subtitleRef.current) observer.unobserve(subtitleRef.current);
-      if (formRef.current) observer.unobserve(formRef.current);
+      if (title) observer.unobserve(title);
+      if (subtitle) observer.unobserve(subtitle);
+      if (form) observer.unobserve(form);
     };
   }, []);
 
