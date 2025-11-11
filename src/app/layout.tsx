@@ -127,6 +127,24 @@ export default function RootLayout({
           pauseOnHover
           theme="dark" // light bhi use kar sakta hai
         />
+
+        {/* Crisp Live Chat */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.$crisp = [];
+              window.CRISP_WEBSITE_ID = "f9729d4f-8a47-417e-bc3d-04c154a01f95";
+              (function() {
+                d = document;
+                s = d.createElement("script");
+                s.src = "https://client.crisp.chat/l.js";
+                s.async = 1;
+                d.getElementsByTagName("head")[0].appendChild(s);
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );
