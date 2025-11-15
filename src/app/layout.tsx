@@ -128,23 +128,21 @@ export default function RootLayout({
           theme="dark" // light bhi use kar sakta hai
         />
 
-        {/* Crisp Live Chat */}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.$crisp = [];
-              window.CRISP_WEBSITE_ID = "f9729d4f-8a47-417e-bc3d-04c154a01f95";
-              (function() {
-                d = document;
-                s = d.createElement("script");
-                s.src = "https://client.crisp.chat/l.js";
-                s.async = 1;
-                d.getElementsByTagName("head")[0].appendChild(s);
-              })();
-            `,
-          }}
-        />
+        {/* Tawk.to Live Chat */}
+        <div dangerouslySetInnerHTML={{
+          __html: `<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69187348838185195919120b/1ja3o4lcb';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->`
+        }} />
       </body>
     </html>
   );

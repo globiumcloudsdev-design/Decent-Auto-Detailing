@@ -560,7 +560,7 @@ const handleVariantChange = (vehicleId: string, variantId: string) => {
 
       console.log("Sending booking data:", bookingData);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/booking`, { // Changed API endpoint to /api/bookings
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/booking`, { 
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -749,7 +749,7 @@ const handleVariantChange = (vehicleId: string, variantId: string) => {
                       {/* Service Type Selection */}
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Service Type
+                          vehicle Type
                         </label>
                         <select
                           value={vehicle.serviceType}
@@ -769,7 +769,7 @@ const handleVariantChange = (vehicleId: string, variantId: string) => {
                       {serviceType?.variants && (
                         <div>
                           <label className="block text-sm font-medium mb-2">
-                            Vehicle Type
+                            Car Type
                           </label>
                           <select
                             value={vehicle.variant}
